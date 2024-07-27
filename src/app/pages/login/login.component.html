@@ -1,0 +1,32 @@
+<main>
+  <section class="form-login">
+    <div class="form">
+      <div class="logo">
+        <h1>Login in NoteMach</h1>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password">
+      </mat-form-field>
+
+      <div class="checkbox">
+        <mat-checkbox class="example-margin">
+          <span id="remember">Lembra dados?</span>
+        </mat-checkbox>
+        <span>Esqueceu sua senha?</span>
+      </div>
+
+      <div class="btns">
+        <button id="btn-login" (click)="login()">Login</button>
+        <button id="btn-register" (click)="register()">Register</button>
+      </div>
+    </div>
+  </section>
+  <section class="main-section">
+    <img src="assets/dashboard.svg" alt="">
+  </section>
+</main>

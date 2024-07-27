@@ -1,0 +1,66 @@
+<div class="container-dashboard">
+
+  <div class="slidebar">
+    <span>Docker</span>
+    <div class="add">
+      <div class="btn-add">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      <div class="cores">
+        <div class="cor" style="background-color: #FFC972;"></div>
+        <div class="cor" style="background-color: #FF9B73;"></div>
+        <div class="cor" style="background-color: #AE96FC;"></div>
+        <div class="cor" style="background-color: #01D4FF;"></div>
+        <div class="cor" style="background-color: #E4EE90;"></div>
+        <div class="cor" style="background-color: #5AB0FF;"></div>
+        <div class="cor" style="background-color: #98FC96;"></div>
+      </div>
+    </div>
+    <div class="config">
+      <i class="fa-solid fa-moon"></i>
+      <div class="user">
+        <img src="assets/user.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="cabecalho">
+      <div class="name">
+        <span class="text">Hello, Luan</span>
+      </div>
+
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" name="search" id="search" placeholder="Search">
+      </div>
+    </div>
+
+    <div class="informs">
+      <span class="title">Notes</span>
+      <div class="btns">
+        <button class="trash">
+          <i class="fa-solid fa-trash"></i>
+          Trash
+        </button>
+
+        <button class="favorites">
+          <i class="fa-solid fa-trash"></i>
+          Favorites
+        </button>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card" *ngFor="let item of tarefas; let i = index" cdkDrag (cdkDragEnded)="onDragEnded($event, i)">
+        <textarea name="" id="" rows="6" maxlength="70" placeholder="Digite algo" [(ngModel)]="item.nome" disabled
+          #areaInform></textarea>
+        <div class="inform">
+          <span>July 27, 24</span>
+          <div class="edit" (click)="editItem()"><i class="fa-solid fa-pencil"></i></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
