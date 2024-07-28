@@ -2,7 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CdkDragDrop, CdkDragEnd, DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCardComponent } from '../../components/dialog-card/dialog-card.component';
+import { Tarefa } from '../../interface/tarefa';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +14,9 @@ import { CdkDragDrop, CdkDragEnd, DragDropModule } from '@angular/cdk/drag-drop'
     HeaderComponent,
     CommonModule,
     FormsModule,
-    DragDropModule
+    DragDropModule,
+    CdkDropList,
+    CdkDrag
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -21,35 +26,21 @@ export class HomeComponent implements OnInit {
   @ViewChild('areaInform') areaInform!: ElementRef
 
 
-  tarefas: { nome: string, concluida: boolean }[] = [];
-  inputValue: string = '';
+  tarefas: Tarefa[] = [];
   itemConcluido: boolean = false;
-  originalPositions: { [key: number]: { top: string, left: string } } = {};
+  cores: boolean = false;
+  dropPoint: { x: number, y: number }[] = [];
 
-
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.getTarefas()
   }
 
-  onDragEnded(event: CdkDragEnd, index: number): void {
-    const cardElement = event.source.element.nativeElement;
-
-    // Salvar a posição original se não estiver salva
-    if (!this.originalPositions[index]) {
-      this.originalPositions[index] = {
-        top: cardElement.style.top,
-        left: cardElement.style.left
-      };
-    }
-
-    // Resetar a posição do card para sua posição original
-    cardElement.style.transform = 'none';
-    cardElement.style.top = this.originalPositions[index].top;
-    cardElement.style.left = this.originalPositions[index].left;
-
-    event.source.reset();
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.tarefas, event.previousIndex, event.currentIndex);
   }
 
   getTarefas() {
@@ -63,15 +54,90 @@ export class HomeComponent implements OnInit {
   }
 
 
-  addList() {
-    if (this.inputValue.trim()) {
-      this.tarefas.unshift({ nome: this.inputValue.trim(), concluida: false });
-      this.inputValue = ''; // Limpa o campo de entrada
-      localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-      console.log('itens', this.tarefas)
-
+  addCor1() {
+    const novaTarefa: Tarefa = {
+      nome: 'Essa é a cor 1',
+      color: '#FFC972',
+      dropPoint: 0
     }
+
+    this.tarefas.unshift(novaTarefa);
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    console.log('itens', this.tarefas)
+  }
+
+  addCor2() {
+    const novaTarefa: Tarefa = {
+      nome: 'Essa é a cor 2',
+      color: '#FF9B73',
+      dropPoint: 0
+    }
+
+    this.tarefas.unshift(novaTarefa);
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    console.log('itens', this.tarefas)
+  }
+  addCor3() {
+    const novaTarefa: Tarefa = {
+      nome: 'Essa é a cor 3',
+      color: '#AE96FC',
+      dropPoint: 0
+    }
+
+    this.tarefas.unshift(novaTarefa);
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    console.log('itens', this.tarefas)
+  }
+  addCor4() {
+    const novaTarefa: Tarefa = {
+      nome: 'Essa é a cor 4',
+      color: '#01D4FF',
+      dropPoint: 0
+    }
+
+    this.tarefas.unshift(novaTarefa);
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    console.log('itens', this.tarefas)
+  }
+  addCor5() {
+    const novaTarefa: Tarefa = {
+      nome: 'Essa é a cor 5',
+      color: '#E4EE90',
+      dropPoint: 0
+    }
+
+    this.tarefas.unshift(novaTarefa);
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    console.log('itens', this.tarefas)
+  }
+  addCor6() {
+    const novaTarefa: Tarefa = {
+      nome: 'Essa é a cor 6',
+      color: '#5AB0FF',
+      dropPoint: 0
+    }
+
+    this.tarefas.unshift(novaTarefa);
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    console.log('itens', this.tarefas)
+  }
+  addCor7() {
+    const novaTarefa: Tarefa = {
+      nome: 'Essa é a cor 7',
+      color: '#98FC96',
+      dropPoint: 0
+    }
+
+    this.tarefas.unshift(novaTarefa);
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
+
+    console.log('itens', this.tarefas)
   }
 
   remItem(index: number): void {
@@ -91,9 +157,12 @@ export class HomeComponent implements OnInit {
     this.areaInform.nativeElement.disabled = false
   }
 
-  concluir(index: number) {
-    this.tarefas[index].concluida = !this.tarefas[index].concluida;
-    localStorage.setItem('lista', JSON.stringify(this.tarefas));
+  openColor() {
+    this.cores = !this.cores
+  }
+
+  openItem() {
+    this.dialog.open(DialogCardComponent)
   }
 
 }

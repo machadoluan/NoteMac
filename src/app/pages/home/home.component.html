@@ -3,20 +3,20 @@
   <div class="slidebar">
     <span>Docker</span>
     <div class="add">
-      <div class="btn-add">
+      <div class="btn-add" (click)="openColor()">
         <i class="fa-solid fa-plus"></i>
       </div>
-      <div class="cores">
-        <div class="cor" style="background-color: #FFC972;"></div>
-        <div class="cor" style="background-color: #FF9B73;"></div>
-        <div class="cor" style="background-color: #AE96FC;"></div>
-        <div class="cor" style="background-color: #01D4FF;"></div>
-        <div class="cor" style="background-color: #E4EE90;"></div>
-        <div class="cor" style="background-color: #5AB0FF;"></div>
-        <div class="cor" style="background-color: #98FC96;"></div>
+      <div class="cores" [ngClass]="{'d-opacity': cores, 'd-none': !cores}">
+        <div class="cor" style="background-color: #FFC972;" (click)="addCor1()"></div>
+        <div class="cor" style="background-color: #FF9B73;" (click)="addCor2()"></div>
+        <div class="cor" style="background-color: #AE96FC;" (click)="addCor3()"></div>
+        <div class="cor" style="background-color: #01D4FF;" (click)="addCor4()"></div>
+        <div class="cor" style="background-color: #E4EE90;" (click)="addCor5()"></div>
+        <div class="cor" style="background-color: #5AB0FF;" (click)="addCor6()"></div>
+        <div class="cor" style="background-color: #98FC96;" (click)="addCor7()"></div>
       </div>
     </div>
-    <div class="config">
+    <div class=" config">
       <i class="fa-solid fa-moon"></i>
       <div class="user">
         <img src="assets/user.png" alt="">
@@ -39,7 +39,7 @@
     <div class="informs">
       <span class="title">Notes</span>
       <div class="btns">
-        <button class="trash">
+        <button class="trash" >
           <i class="fa-solid fa-trash"></i>
           Trash
         </button>
@@ -51,16 +51,16 @@
       </div>
     </div>
 
-    <div class="cards">
-      <div class="card" *ngFor="let item of tarefas; let i = index" cdkDrag (cdkDragEnded)="onDragEnded($event, i)">
-        <textarea name="" id="" rows="6" maxlength="70" placeholder="Digite algo" [(ngModel)]="item.nome" disabled
-          #areaInform></textarea>
+    <div class="cards" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
+      @for (item of tarefas; track item) {
+      <div class="card" cdkDrag [ngStyle]="{'background-color': item.color}">
+        <span id="inform">{{item.nome}}</span>
         <div class="inform">
           <span>July 27, 24</span>
-          <div class="edit" (click)="editItem()"><i class="fa-solid fa-pencil"></i></div>
+          <div class="edit"><i class="fa-solid fa-pencil"></i></div>
         </div>
       </div>
-
+      }
     </div>
   </main>
 </div>

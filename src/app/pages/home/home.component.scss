@@ -44,10 +44,19 @@
 
       }
 
+      .d-none {
+        opacity: 0;
+      }
+
+      .d-opacity {
+        opacity: 1;
+      }
+
       .cores {
         display: flex;
         flex-direction: column;
         gap: 1rem;
+
 
         .cor {
           width: 20px;
@@ -183,6 +192,8 @@
           &.trash {
             background-color: rgba($color: red, $alpha: 0.8);
             color: white;
+            display: none;
+            transition: all 300ms ease-in-out;
           }
 
           &.favorites i {
@@ -199,6 +210,10 @@
       }
     }
 
+
+
+
+
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -214,30 +229,36 @@
         background-color: #FFC972;
         border-radius: 10px;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        overflow: hidden;
 
-
-        textarea {
-          width: 80%;
-          margin: 5px 10px;
-          resize: none;
-          background-color: transparent;
-          border: none;
-          outline: none;
+        &:hover .inform {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        .inform{
+        #inform {
+          font-size: 14px;
+        }
+
+        .inform {
           display: flex;
           width: 100%;
           justify-content: space-between;
           align-items: center;
-          padding: 0 10px 10px 10px;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 
-          span{
+          span {
             font-size: 14px;
             color: rgba($color: black, $alpha: 0.7)
           }
 
-          .edit{
+          .edit {
             width: 25px;
             height: 25px;
             border-radius: 50%;
@@ -246,7 +267,7 @@
             place-content: center;
             cursor: pointer;
 
-            i{
+            i {
               font-size: 12px;
               color: white;
             }
@@ -256,3 +277,35 @@
     }
   }
 }
+
+
+
+.cdk-drag-placeholder {
+  opacity: 0;
+
+}
+
+.cdk-drag-animating {
+  transition: transform 0.5s cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+
+.cdk-drag-preview {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  cursor: move;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+
+  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.5);
+
+  .inform {
+    opacity: 0;
+  }
+}
+
