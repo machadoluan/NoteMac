@@ -39,7 +39,7 @@
     <div class="informs">
       <span class="title">Notes</span>
       <div class="btns">
-        <button class="trash" >
+        <button class="trash" *ngIf="selected.length >= 1">
           <i class="fa-solid fa-trash"></i>
           Trash
         </button>
@@ -52,15 +52,20 @@
     </div>
 
     <div class="cards" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
-      @for (item of tarefas; track item) {
-      <div class="card" cdkDrag [ngStyle]="{'background-color': item.color}">
+      <div class="card" *ngFor="let item of tarefas, let i = index" cdkDrag [ngStyle]="{'background-color': item.color}"
+        [ngClass]="{'selected': selected.includes(item)}">
+
         <span id="inform">{{item.nome}}</span>
         <div class="inform">
           <span>July 27, 24</span>
           <div class="edit"><i class="fa-solid fa-pencil"></i></div>
         </div>
+
+        <div class="select" (click)="selectItem(item)"
+          [ngClass]="{'d-opacity':  selected.includes(item), 'd-none': !selected.includes(item)}">
+          <i class="fa-solid fa-check"></i>
+        </div>
       </div>
-      }
     </div>
   </main>
 </div>

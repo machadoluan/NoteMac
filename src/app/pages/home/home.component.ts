@@ -16,7 +16,7 @@ import { Tarefa } from '../../interface/tarefa';
     FormsModule,
     DragDropModule,
     CdkDropList,
-    CdkDrag
+    CdkDrag,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -24,12 +24,15 @@ import { Tarefa } from '../../interface/tarefa';
 export class HomeComponent implements OnInit {
 
   @ViewChild('areaInform') areaInform!: ElementRef
+  @ViewChild('deleteItem') deleteItem!: ElementRef
 
 
   tarefas: Tarefa[] = [];
   itemConcluido: boolean = false;
   cores: boolean = false;
   dropPoint: { x: number, y: number }[] = [];
+  selected: Tarefa[] = [];
+  isSelected: boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -43,6 +46,10 @@ export class HomeComponent implements OnInit {
     moveItemInArray(this.tarefas, event.previousIndex, event.currentIndex);
   }
 
+  apenas() {
+    console.log('opa')
+  }
+
   getTarefas() {
     const itens = localStorage.getItem('lista')
 
@@ -53,6 +60,20 @@ export class HomeComponent implements OnInit {
 
   }
 
+  selectItem(item: Tarefa) {
+    const index = this.selected.indexOf(item)
+
+    if (index === -1) {
+      this.selected.push(item)
+      this.isSelected = true;
+
+    } else {
+      this.selected.splice(index, 1)
+      this.isSelected = false;
+    }
+
+    console.log('Itens selecionados: ', this.selected)
+  }
 
   addCor1() {
     const novaTarefa: Tarefa = {
@@ -64,6 +85,7 @@ export class HomeComponent implements OnInit {
     this.tarefas.unshift(novaTarefa);
     localStorage.setItem('lista', JSON.stringify(this.tarefas))
 
+    console.log('Itens selecionados: ', this.selected)
     console.log('itens', this.tarefas)
   }
 
