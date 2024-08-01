@@ -162,12 +162,10 @@ export class HomeComponent implements OnInit {
     console.log('itens', this.tarefas)
   }
 
-  remItem(index: number): void {
-    if (index > -1) {
-      this.tarefas.splice(index, 1); // Remove a tarefa do array
-      localStorage.setItem('lista', JSON.stringify(this.tarefas)); // Atualiza o localStorage
-      // this.getTarefas()
-    }
+  remItem(): void {
+    this.tarefas = this.tarefas.filter(item => !this.selected.includes(item))
+    this.selected = []
+    localStorage.setItem('lista', JSON.stringify(this.tarefas))
   }
 
   remAllItens() {

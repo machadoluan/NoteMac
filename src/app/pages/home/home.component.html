@@ -39,7 +39,7 @@
     <div class="informs">
       <span class="title">Notes</span>
       <div class="btns">
-        <button class="trash" *ngIf="selected.length >= 1">
+        <button class="trash" *ngIf="selected.length >= 1" (click)="remItem()">
           <i class="fa-solid fa-trash"></i>
           Trash
         </button>
