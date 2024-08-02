@@ -1,5 +1,31 @@
-.content-card{
-  width: 1vw;
-  height: 40vh;
-  background-color: #FFC972;
+textarea{
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.teste::-webkit-scrollbar {
+  width: 5px;
+  /* width of the entire scrollbar */
+}
+
+.teste::-webkit-scrollbar-track {
+  background: transparent;
+  /* color of the tracking area */
+}
+
+.teste::-webkit-scrollbar-thumb {
+  background-color: #ffff;
+  /* color of the scroll thumb */
+  border-radius: 20px;
+  /* roundness of the scroll thumb */
+}
+.container-title{
+  text-align: center;
+}
+.title{
+  color: #1b1b1b;
 }

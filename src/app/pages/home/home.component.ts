@@ -21,10 +21,10 @@ import { Tarefa } from '../../interface/tarefa';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
+
 export class HomeComponent implements OnInit {
 
   @ViewChild('areaInform') areaInform!: ElementRef
-  @ViewChild('deleteItem') deleteItem!: ElementRef
 
 
   tarefas: Tarefa[] = [];
@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   dropPoint: { x: number, y: number }[] = [];
   selected: Tarefa[] = [];
   isSelected: boolean = false;
+
 
   constructor(
     private dialog: MatDialog,
@@ -75,91 +76,45 @@ export class HomeComponent implements OnInit {
     console.log('Itens selecionados: ', this.selected)
   }
 
+  openColorDialog(color: string) {
+    const dialogRef = this.dialog.open(DialogCardComponent, {
+      width: '500px',
+      data: {
+        cor: color
+      }
+    })
+
+
+    dialogRef.componentInstance.notaCriada.subscribe((novaTarefa: Tarefa) =>  {
+      this.tarefas.unshift(novaTarefa)
+      localStorage.setItem('lista', JSON.stringify(this.tarefas));
+    })
+  }
+
+
   addCor1() {
-    const novaTarefa: Tarefa = {
-      nome: 'Essa é a cor 1',
-      color: '#FFC972',
-      dropPoint: 0
-    }
-
-    this.tarefas.unshift(novaTarefa);
-    localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-    console.log('Itens selecionados: ', this.selected)
-    console.log('itens', this.tarefas)
+   this.openColorDialog("#FFC972")
   }
 
   addCor2() {
-    const novaTarefa: Tarefa = {
-      nome: 'Essa é a cor 2',
-      color: '#FF9B73',
-      dropPoint: 0
-    }
-
-    this.tarefas.unshift(novaTarefa);
-    localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-    console.log('itens', this.tarefas)
+    this.openColorDialog("#FF9B73")
   }
   addCor3() {
-    const novaTarefa: Tarefa = {
-      nome: 'Essa é a cor 3',
-      color: '#AE96FC',
-      dropPoint: 0
-    }
 
-    this.tarefas.unshift(novaTarefa);
-    localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-    console.log('itens', this.tarefas)
+    this.openColorDialog("#AE96FC")
   }
   addCor4() {
-    const novaTarefa: Tarefa = {
-      nome: 'Essa é a cor 4',
-      color: '#01D4FF',
-      dropPoint: 0
-    }
 
-    this.tarefas.unshift(novaTarefa);
-    localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-    console.log('itens', this.tarefas)
+    this.openColorDialog("#01D4FF")
   }
   addCor5() {
-    const novaTarefa: Tarefa = {
-      nome: 'Essa é a cor 5',
-      color: '#E4EE90',
-      dropPoint: 0
-    }
-
-    this.tarefas.unshift(novaTarefa);
-    localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-    console.log('itens', this.tarefas)
+    this.openColorDialog("#E4EE90")
   }
   addCor6() {
-    const novaTarefa: Tarefa = {
-      nome: 'Essa é a cor 6',
-      color: '#5AB0FF',
-      dropPoint: 0
-    }
-
-    this.tarefas.unshift(novaTarefa);
-    localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-    console.log('itens', this.tarefas)
+    this.openColorDialog("#5AB0FF")
   }
   addCor7() {
-    const novaTarefa: Tarefa = {
-      nome: 'Essa é a cor 7',
-      color: '#98FC96',
-      dropPoint: 0
-    }
-
-    this.tarefas.unshift(novaTarefa);
-    localStorage.setItem('lista', JSON.stringify(this.tarefas))
-
-    console.log('itens', this.tarefas)
+    this.openColorDialog("#98FC96")
   }
 
   remItem(): void {
