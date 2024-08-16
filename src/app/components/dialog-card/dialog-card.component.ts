@@ -28,13 +28,26 @@ export class DialogCardComponent implements OnInit {
   }
 
   criarNota() {
-    const novaTarefa: Tarefa = {
-      nome: this.text,
-      color: this.data.cor,
-      dropPoint: 0
+    if (this.text === '') {
+      const novaTarefa: Tarefa = {
+        nome: 'Empty Card',
+        color: this.data.cor,
+        dropPoint: 0,
+        favorites: false
+      }
+
+      this.notaCriada.emit(novaTarefa)
+    } else {
+      const novaTarefa: Tarefa = {
+        nome: this.text,
+        color: this.data.cor,
+        dropPoint: 0,
+        favorites: false
+      }
+
+      this.notaCriada.emit(novaTarefa)
     }
 
-    this.notaCriada.emit(novaTarefa)
   }
 
   autoAjuste(event: Event): void {

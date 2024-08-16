@@ -1,1 +1,14 @@
-<p>dialog-edit works!</p>
+<div [ngStyle]="{'background-color': data.cor}">
+  <div mat-dialog-title class="container-title">
+    <span class="title">Editar nota</span>
+  </div>
+
+  <div mat-dialog-content class="scroll">
+    <textarea [(ngModel)]="text" (input)="autoAjuste($event)" placeholder="Criar uma nota..."></textarea>
+  </div>
+
+  <mat-dialog-actions class="btns">
+    <button mat-dialog-close class="cancel">Cancelar</button>
+    <button mat-dialog-close class="salvar" (click)="editar()">Salvar</button>
+  </mat-dialog-actions>
+  <div>

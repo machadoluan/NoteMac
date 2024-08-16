@@ -1,6 +1,6 @@
 <div class="container-dashboard">
 
-  <div class="slidebar">
+  <!-- <div class="slidebar">
     <span>Docker</span>
     <div class="add">
       <div class="btn-add" (click)="openColor()">
@@ -22,49 +22,112 @@
         <img src="assets/user.png" alt="">
       </div>
     </div>
-  </div>
+  </div> -->
 
   <main>
     <div class="cabecalho">
       <div class="name">
-        <span class="text">Hello, Luan</span>
+        <div class="text">
+          <span id="day">Good morning</span> <br>
+          <span id="name">Luan</span>
+        </div>
       </div>
 
-      <div class="search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" name="search" id="search" placeholder="Search">
+      <div class="atalhos">
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" name="search" id="search" placeholder="Search">
+        </div>
+
+        <i class="fa-solid fa-moon"></i>
+        <div class="user">
+          <img src="assets/user.png" alt="">
+        </div>
       </div>
     </div>
 
     <div class="informs">
-      <span class="title">Notes</span>
+      <span class="title">My Notes</span>
+      <div class="filters">
+        <div id="new-filter">
+          <i class="fa-solid fa-plus"></i>
+        </div>
+        <div id="edit-filter">
+          <i class="fa-solid fa-pen"></i>
+        </div>
+        <span id="all">All</span>
+        <span id="favorites">Favorites</span>
+      </div>
       <div class="btns">
-        <button class="trash" *ngIf="selected.length >= 1" (click)="remItem()">
+        <button class="trash" (click)="remItem()">
           <i class="fa-solid fa-trash"></i>
-          Trash
-        </button>
-
-        <button class="favorites">
-          <i class="fa-solid fa-trash"></i>
-          Favorites
+          Excluir
         </button>
       </div>
     </div>
 
-    <div class="cards" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
-      <div class="card" *ngFor="let item of tarefas, let i = index" cdkDrag [ngStyle]="{'background-color': item.color}"
-        [ngClass]="{'selected': selected.includes(item)}">
+    <div class="pineds">
+      <h1>Pined</h1>
 
-        <span id="inform">{{item.nome}}</span>
-        <div class="inform">
-          <span>July 27, 24</span>
-          <div class="edit"><i class="fa-solid fa-pencil"></i></div>
-        </div>
+      <div class="cards" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
+        <div class="card" *ngFor="let item of tarefas, let i = index" cdkDrag
+          [ngStyle]="{'background-color': item.color}" [ngClass]="{'selected': selected.includes(item)}">
 
-        <div class="select" (click)="selectItem(item)"
-          [ngClass]="{'d-opacity':  selected.includes(item), 'd-none': !selected.includes(item)}">
-          <i class="fa-solid fa-check"></i>
+          <span id="text-conteudo">{{item.nome}}</span>
+
+          <div class="inform">
+            <span>July 27, 24</span>
+            <div class="edit" (click)="editItem(item)"><i class="fa-solid fa-pencil"></i></div>
+            <div class="edit" (click)="favorites(item)"><i class="fa-solid fa-star"></i></div>
+          </div>
+
+          <div class="select" (click)="selectItem(item)"
+            [ngClass]="{'d-opacity':  selected.includes(item), 'd-none': !selected.includes(item)}">
+            <i class="fa-solid fa-check"></i>
+          </div>
         </div>
+      </div>
+    </div>
+
+
+    <div class="others">
+      <h1>Others</h1>
+
+      <div class="cards" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
+        <div class="card" *ngFor="let item of tarefas, let i = index" cdkDrag
+          [ngStyle]="{'background-color': item.color}" [ngClass]="{'selected': selected.includes(item)}">
+
+          <span id="text-conteudo">{{item.nome}}</span>
+
+          <div class="inform">
+            <span>July 27, 24</span>
+            <div class="edit" (click)="editItem(item)"><i class="fa-solid fa-pencil"></i></div>
+            <div class="edit" (click)="favorites(item)"><i class="fa-solid fa-star"></i></div>
+          </div>
+
+          <div class="select" (click)="selectItem(item)"
+            [ngClass]="{'d-opacity':  selected.includes(item), 'd-none': !selected.includes(item)}">
+            <i class="fa-solid fa-check"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="add">
+      <div class="btn-add" (click)="openColor()">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      <div class="cores" [ngClass]="{'d-opacity': cores, 'd-none': !cores}">
+        <div class="cor " style="background-color: #FF8D8D;" (click)="addCor1()"></div>
+        <div class="cor " style="background-color: #FFBE8E;" (click)="addCor2()"></div>
+        <div class="cor " style="background-color: #FFFA8C;" (click)="addCor3()"></div>
+        <div class="cor " style="background-color: #A3FF8C;" (click)="addCor4()"></div>
+        <div class="cor " style="background-color: #8EFFF1;" (click)="addCor5()"></div>
+        <div class="cor " style="background-color: #FF95E8;" (click)="addCor6()"></div>
+        <div class="cor " style="background-color: #85AEFF;" (click)="addCor7()"></div>
+        <div class="cor " style="background-color: #C08FFF;" (click)="addCor8()"></div>
+        <div class="cor defaut" (click)="addCor9()"></div>
       </div>
     </div>
   </main>

@@ -6,6 +6,8 @@ import { CdkDrag, CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray } fr
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCardComponent } from '../../components/dialog-card/dialog-card.component';
 import { Tarefa } from '../../interface/tarefa';
+import { DialogLoginComponent } from '../../components/dialog-login/dialog-login.component';
+import { DialogEditComponent } from '../../components/dialog-edit/dialog-edit.component';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
   dropPoint: { x: number, y: number }[] = [];
   selected: Tarefa[] = [];
   isSelected: boolean = false;
+  itensFavorites: any
 
 
   constructor(
@@ -41,11 +44,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTarefas()
+
+    this.itensFavorites = this.tarefas.filter(fav => fav.favorites)
+
+    console.log(this.itensFavorites)
+
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.tarefas, event.previousIndex, event.currentIndex);
+
+    this.tarefas.forEach((tarefa, index) => {
+      tarefa.dropPoint = index;
+    });
   }
+
 
   apenas() {
     console.log('opa')
@@ -85,7 +98,7 @@ export class HomeComponent implements OnInit {
     })
 
 
-    dialogRef.componentInstance.notaCriada.subscribe((novaTarefa: Tarefa) =>  {
+    dialogRef.componentInstance.notaCriada.subscribe((novaTarefa: Tarefa) => {
       this.tarefas.unshift(novaTarefa)
       localStorage.setItem('lista', JSON.stringify(this.tarefas));
     })
@@ -93,28 +106,34 @@ export class HomeComponent implements OnInit {
 
 
   addCor1() {
-   this.openColorDialog("#FFC972")
+    this.openColorDialog("#FF8D8D")
   }
 
   addCor2() {
-    this.openColorDialog("#FF9B73")
+    this.openColorDialog("#FFBE8E")
   }
   addCor3() {
 
-    this.openColorDialog("#AE96FC")
+    this.openColorDialog("#FFFA8C")
   }
   addCor4() {
 
-    this.openColorDialog("#01D4FF")
+    this.openColorDialog("#A3FF8C")
   }
   addCor5() {
-    this.openColorDialog("#E4EE90")
+    this.openColorDialog("#8EFFF1")
   }
   addCor6() {
-    this.openColorDialog("#5AB0FF")
+    this.openColorDialog("#FF95E8")
   }
   addCor7() {
-    this.openColorDialog("#98FC96")
+    this.openColorDialog("#85AEFF")
+  }
+  addCor8() {
+    this.openColorDialog("#C08FFF")
+  }
+  addCor9() {
+    this.openColorDialog("#FFFFFF")
   }
 
   remItem(): void {
@@ -128,12 +147,27 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('lista')
   }
 
-  editItem() {
-    this.areaInform.nativeElement.disabled = false
+  editItem(item: Tarefa) {
+    this.dialog.open(DialogEditComponent, {
+      width: '500px',
+      data: {
+        nome: item.nome,
+        cor: item.color
+      }
+    })
+
+    console.log('Item a ser editado', item)
   }
 
   openColor() {
     this.cores = !this.cores
+  }
+
+  favorites(item: Tarefa) {
+    item.favorites = true
+    console.log(item)
+    localStorage.setItem('lista', JSON.stringify(this.tarefas));
+
   }
 
   openItem() {
